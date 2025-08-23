@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart - Your AI Farming Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🌱</span>
+                <span class="logo-text">AgriSmart</span>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-item active" data-tab="chat">AI Assistant</button>
+                <button class="nav-item" data-tab="knowledge">Knowledge Base</button>
+                <button class="nav-item" data-tab="tools">Farm Tools</button>
+                <button class="nav-item" data-tab="weather">Weather</button>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-secondary" id="historyBtn">History</button>
+                <button class="btn-primary" id="settingsBtn">Settings</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Chat Tab -->
+        <div class="tab-content active" id="chat">
+            <div class="chat-layout">
+                <!-- Sidebar -->
+                <aside class="chat-sidebar">
+                    <div class="sidebar-header">
+                        <h3>Quick Actions</h3>
+                        <button class="new-chat-btn" id="newChatBtn">
+                            <span>+</span> New Chat
+                        </button>
+                    </div>
+                    
+                    <div class="quick-topics">
+                        <h4>Popular Topics</h4>
+                        <div class="topic-grid">
+                            <button class="topic-card" data-question="Analyze my soil for the best crops">
+                                <span class="topic-icon">🌱</span>
+                                <span class="topic-title">Crop Selection</span>
+                            </button>
+                            <button class="topic-card" data-question="Identify this plant disease from symptoms">
+                                <span class="topic-icon">🦠</span>
+                                <span class="topic-title">Disease ID</span>
+                            </button>
+                            <button class="topic-card" data-question="Create an irrigation schedule">
+                                <span class="topic-icon">💧</span>
+                                <span class="topic-title">Irrigation</span>
+                            </button>
+                            <button class="topic-card" data-question="Pest control strategy">
+                                <span class="topic-icon">🐛</span>
+                                <span class="topic-title">Pest Control</span>
+                            </button>
+                            <button class="topic-card" data-question="Fertilizer recommendations">
+                                <span class="topic-icon">🧪</span>
+                                <span class="topic-title">Fertilizers</span>
+                            </button>
+                            <button class="topic-card" data-question="Market price analysis">
+                                <span class="topic-icon">📈</span>
+                                <span class="topic-title">Market Info</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-history">
+                        <h4>Recent Chats</h4>
+                        <div class="history-list" id="chatHistoryList">
+                            <!-- Dynamic chat history will be loaded here -->
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Chat Area -->
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <div class="chat-status">
+                            <div class="status-indicator online"></div>
+                            <div class="status-text">
+                                <h3>AI Agricultural Expert</h3>
+                                <p id="assistantStatus">Ready to help with your farming questions</p>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="action-btn" id="exportChat" title="Export Chat">📤</button>
+                            <button class="action-btn" id="clearChat" title="Clear Chat">🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="welcome-section">
+                            <div class="welcome-avatar">🌾</div>
+                            <div class="welcome-content">
+                                <h2>Welcome to AgriSmart AI Assistant!</h2>
+                                <p>I'm your intelligent farming companion. I can help you with:</p>
+                                <div class="feature-highlights">
+                                    <div class="feature-item">
+                                        <span class="feature-icon">🧠</span>
+                                        <div>
+                                            <strong>Smart Analysis</strong>
+                                            <p>Step-by-step reasoning for all recommendations</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <span class="feature-icon">📊</span>
+                                        <div>
+                                            <strong>Data-Driven Insights</strong>
+                                            <p>Evidence-based farming advice</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature-item">
+                                        <span class="feature-icon">🎯</span>
+                                        <div>
+                                            <strong>Personalized Solutions</strong>
+                                            <p>Tailored to your specific conditions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="example-questions">
+                                    <h4>Try asking me:</h4>
+                                    <div class="example-grid">
+                                        <button class="example-btn" data-question="What's the best planting schedule for tomatoes in my region?">
+                                            "What's the best planting schedule for tomatoes?"
+                                        </button>
+                                        <button class="example-btn" data-question="My wheat crop has yellow spots on leaves, what could be wrong?">
+                                            "My wheat has yellow spots, what's wrong?"
+                                        </button>
+                                        <button class="example-btn" data-question="How do I improve clay soil for better crop yield?">
+                                            "How to improve clay soil for better yield?"
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thinking-indicator" id="thinkingIndicator">
+                        <div class="thinking-animation">
+                            <div class="thinking-dot"></div>
+                            <div class="thinking-dot"></div>
+                            <div class="thinking-dot"></div>
+                        </div>
+                        <span id="thinkingText">Analyzing your question...</span>
+                    </div>
+
+                    <div class="chat-input-section">
+                        <div class="input-toolbar">
+                            <button class="toolbar-btn" id="imageUploadBtn" title="Upload Image">
+                                📷
+                                <input type="file" id="imageInput" accept="image/*" hidden>
+                            </button>
+                            <button class="toolbar-btn" id="voiceBtn" title="Voice Input">🎤</button>
+                            <button class="toolbar-btn" id="locationBtn" title="Add Location">📍</button>
+                            <div class="toolbar-divider"></div>
+                            <select class="crop-selector" id="cropSelector">
+                                <option value="">Select Crop (Optional)</option>
+                                <option value="rice">Rice</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="corn">Corn</option>
+                                <option value="tomato">Tomato</option>
+                                <option value="potato">Potato</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="onion">Onion</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <div class="input-wrapper">
+                                <textarea 
+                                    id="messageInput" 
+                                    placeholder="Ask me anything about farming, crops, soil, pests, or agricultural techniques..."
+                                    rows="1"
+                                ></textarea>
+                                <button class="send-btn" id="sendBtn">
+                                    <span class="send-icon">➤</span>
+                                </button>
+                            </div>
+                            <div class="input-suggestions" id="inputSuggestions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Base Tab -->
+        <div class="tab-content" id="knowledge">
+            <div class="knowledge-container">
+                <div class="knowledge-header">
+                    <h2>Agricultural Knowledge Base</h2>
+                    <div class="search-container">
+                        <input type="text" id="knowledgeSearch" placeholder="Search knowledge base...">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+                
+                <div class="knowledge-categories">
+                    <div class="category-card" data-category="crops">
+                        <div class="category-icon">🌾</div>
+                        <h3>Crops & Varieties</h3>
+                        <p>Detailed information about different crops, planting schedules, and varieties</p>
+                    </div>
+                    <div class="category-card" data-category="soil">
+                        <div class="category-icon">🌱</div>
+                        <h3>Soil Management</h3>
+                        <p>Soil types, testing, improvement techniques, and fertility management</p>
+                    </div>
+                    <div class="category-card" data-category="pests">
+                        <div class="category-icon">🐛</div>
+                        <h3>Pest & Disease Control</h3>
+                        <p>Identification, prevention, and treatment of common agricultural pests</p>
+                    </div>
+                    <div class="category-card" data-category="irrigation">
+                        <div class="category-icon">💧</div>
+                        <h3>Water Management</h3>
+                        <p>Irrigation systems, water conservation, and scheduling techniques</p>
+                    </div>
+                    <div class="category-card" data-category="fertilizers">
+                        <div class="category-icon">🧪</div>
+                        <h3>Nutrition & Fertilizers</h3>
+                        <p>Plant nutrition, fertilizer types, application methods, and timing</p>
+                    </div>
+                    <div class="category-card" data-category="equipment">
+                        <div class="category-icon">🚜</div>
+                        <h3>Farm Equipment</h3>
+                        <p>Agricultural machinery, tools, maintenance, and selection guides</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-content" id="knowledgeContent">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Farm Tools Tab -->
+        <div class="tab-content" id="tools">
+            <div class="tools-container">
+                <div class="tools-header">
+                    <h2>Smart Farm Tools</h2>
+                    <p>Interactive calculators and planning tools for your farm</p>
+                </div>
+
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">🧮</div>
+                        <h3>Fertilizer Calculator</h3>
+                        <p>Calculate exact fertilizer requirements for your crops</p>
+                        <button class="tool-btn" onclick="openTool('fertilizer')">Use Tool</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">💧</div>
+                        <h3>Irrigation Planner</h3>
+                        <p>Plan your irrigation schedule based on crop needs</p>
+                        <button class="tool-btn" onclick="openTool('irrigation')">Use Tool</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">📅</div>
+                        <h3>Planting Calendar</h3>
+                        <p>Get personalized planting schedules for your region</p>
+                        <button class="tool-btn" onclick="openTool('calendar')">Use Tool</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">💰</div>
+                        <h3>Profit Calculator</h3>
+                        <p>Calculate potential profits and ROI for different crops</p>
+                        <button class="tool-btn" onclick="openTool('profit')">Use Tool</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">🌡️</div>
+                        <h3>Growing Degree Days</h3>
+                        <p>Track heat accumulation for crop development</p>
+                        <button class="tool-btn" onclick="openTool('gdd')">Use Tool</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">⚖️</div>
+                        <h3>Seed Rate Calculator</h3>
+                        <p>Calculate optimal seeding rates for different crops</p>
+                        <button class="tool-btn" onclick="openTool('seedrate')">Use Tool</button>
+                    </div>
+                </div>
+
+                <div class="tool-modal" id="toolModal">
+                    <div class="tool-modal-content">
+                        <div class="tool-modal-header">
+                            <h3 id="toolModalTitle">Tool</h3>
+                            <button class="close-btn" onclick="closeTool()">&times;</button>
+                        </div>
+                        <div class="tool-modal-body" id="toolModalBody">
+                            <!-- Dynamic tool content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Tab -->
+        <div class="tab-content" id="weather">
+            <div class="weather-container">
+                <div class="weather-header">
+                    <h2>Agricultural Weather Dashboard</h2>
+                    <div class="location-input">
+                        <input type="text" id="locationInput" placeholder="Enter your location...">
+                        <button class="location-btn" id="updateLocationBtn">Update</button>
+                    </div>
+                </div>
+
+                <div class="weather-grid">
+                    <div class="weather-card current-weather">
+                        <h3>Current Conditions</h3>
+                        <div class="current-weather-content" id="currentWeather">
+                            <div class="weather-icon">🌤️</div>
+                            <div class="temperature">28°C</div>
+                            <div class="condition">Partly Cloudy</div>
+                            <div class="details">
+                                <div class="detail-item">
+                                    <span>Humidity:</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Wind:</span>
+                                    <span>12 km/h</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Pressure:</span>
+                                    <span>1013 hPa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-card forecast-card">
+                        <h3>7-Day Forecast</h3>
+                        <div class="forecast-list" id="forecastList">
+                            <!-- Dynamic forecast content -->
+                        </div>
+                    </div>
+
+                    <div class="weather-card alerts-card">
+                        <h3>Weather Alerts</h3>
+                        <div class="alerts-content" id="weatherAlerts">
+                            <div class="alert-item">
+                                <div class="alert-icon">⚠️</div>
+                                <div class="alert-text">
+                                    <strong>Rainfall Expected</strong>
+                                    <p>Heavy rain expected tomorrow. Consider covering sensitive crops.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-card recommendations-card">
+                        <h3>Farming Recommendations</h3>
+                        <div class="recommendations-content" id="weatherRecommendations">
+                            <div class="recommendation-item">
+                                <div class="rec-icon">🌱</div>
+                                <div class="rec-text">
+                                    <strong>Ideal for Planting</strong>
+                                    <p>Current conditions are perfect for sowing summer vegetables.</p>
+                                </div>
+                            </div>
+                            <div class="recommendation-item">
+                                <div class="rec-icon">💧</div>
+                                <div class="rec-text">
+                                    <strong>Irrigation Timing</strong>
+                                    <p>Water crops early morning to minimize evaporation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Preview Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="image-modal-content">
+            <span class="image-close" onclick="closeImageModal()">&times;</span>
+            <img id="modalImage" src="" alt="Uploaded image">
+            <div class="image-info">
+                <h3>Image Analysis</h3>
+                <p id="imageAnalysis">Analyzing image...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
